@@ -1,4 +1,4 @@
-res_set - Version 1.4 - Jul 19 2006
+res_set - Version 1.5 - Mar 03 2007
 Copyright (c) 2005-2006 Ross Smith II (http://smithii.com) All Rights Reserved
 
 ------------------------------------------------------------------------------
@@ -33,24 +33,6 @@ Options:
 -v | --version        Show version and copyright information and quit
 -? | --help           Show this help message and quit
 
-Resolution can be entered as 'width height', or one of the following terms:
-
-	WUXGA  (1920x1200)
-	SUXGA  (1800x1440} (Sorta Ultra XGA :)
-	WSXGA+ (1680x1050)
-	UXGA   (1600x1200)
-	WSXGA  (1600x1024)
-	SXGA+  (1400x1050)
-	SXGA   (1280x1024)
-	WXGA   (1280x720)
-	XGA    (1024x768)
-	SVGA   (800x600)
-	VGA    (640x480)
-	EGA    (640x400)
-	CGA    (320x200)
-
-Not all of the above modes may be available.
-
 Examples:
  res_set -l 21                 & rem list the display modes
  res_set -e 21                 & rem set display to mode 21
@@ -72,6 +54,38 @@ Also
 -d        alias for --bits
 
 You can use / instead of - to preface single letter options, //width will *not* work.
+
+Resolution can be entered as 'width height', or one of the following terms:
+
+	320x200		CGA		Computer Graphics Adaptor
+	640x400		EGA		Enhanced Graphics Adaptor
+	640x480		VGA		Video Graphics Adaptor
+	800x600		SVGA	Super VGA
+	1024x768	XGA		eXtended Graphics Array
+	1280x800	WXGA	Wide XGA
+	1280x1024	SXGA	Super XGA
+	1440x900	WXGA+	Wide XGA+
+	1440x900	WSXGA	Wide SXGA
+	1400x1050	SXGA	SXGA+
+	1680x1050	WSXGA+	Wide SXGA+
+	1600x1200	UXGA	Ultra XGA
+	1920x1200	WUXGA	Wide UXGA
+	2048x1536	QXGA	Quad XGA
+	2560x1600	WQXGA	Wide QXGA
+	2560x2048	QSXGA	Quad Super XGA
+	3200x2048	WQSXGA	Wide QSXGA
+	3200x2400	QUXGA	Quad Ultra XGA
+	3840x2400	WQUXGA	Wide QUXGA
+	4096x3072	HXGA	Hexadecatuple XGA
+	5120x3200	WHXGA	Wide HXGA
+	5120x4096	HSXGA	Hexadecatuple Super XGA
+	6400x4096	WHSXGA	Wide HSXGA
+	6400x4800	HUXGA	Hexadecatuple Ultra XGA
+	7680x4800	WHUXGA	Wide HUXGA
+
+Not all of the above modes will be available.
+
+	Source:  http://en.wikipedia.org/wiki/List_of_common_resolutions
 
 ------------------------------------------------------------------------------
 

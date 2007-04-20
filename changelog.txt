@@ -1,5 +1,10 @@
 res_set changelog
 
+Version 1.5 - 03 Mar 07:
+
+	Added additional resolutions per http://en.wikipedia.org/wiki/List_of_common_resolutions
+	Removed SUXGA (1800x1440} as it doesn't seem to be used anywhere
+	
 Version 1.4 - 12 Jul 06:
 
 	Standardized version information across all programs

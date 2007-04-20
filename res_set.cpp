@@ -2,7 +2,7 @@
 
 $Id$
 
-Copyright (c) 2005-2006 Ross Smith II (http://smithii.com). All rights reserved.
+Copyright (c) 2005-2007 Ross Smith II (http://smithii.com). All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of version 2 of the GNU General Public License
@@ -143,27 +143,81 @@ static struct option long_options[] = {
 };
 
 struct _resolution {
-	char *name;
-	int width;
-	int height;
+	int 	width;
+	int 	height;
+	int		pixels;
+	char	*ratio;
+	char	*name;
+	char	*description;
+	char	*application;
+	char	*organization;
 };
 
 typedef struct _resolution Resolution;
 
 static Resolution resolutions[] = {
-	{"WUXGA",	1920,   1200},
-	{"SUXGA",	1800,   1440}, /* Sorta Ultra XGA */
-	{"WSXGA+",	1680,   1050},
-	{"UXGA",	1600,   1200},
-	{"WSXGA",	1600,   1024},
-	{"SXGA+",	1400,   1050},
-	{"SXGA",	1280,   1024},
-	{"WXGA",	1280 ,   720},
-	{"XGA",		1024 ,   768},
-	{"SVGA",	800 ,   600},
-	{"VGA",		640 ,   480},
-	{"EGA",		640 ,   400},
-	{"CGA",		320 ,   200}
+/*
+source: http://en.wikipedia.org/wiki/List_of_common_resolutions
+added:  CGA, EGA
+							aspect
+h		v		pixels		ratio		name		description												application				organization
+-------	-------	-----------	-----------	-----------	-------------------------------------------------------	-----------------------	--------------------- */
+{128,	96,		12288,		"4:3",		"SQCIF",	"Sub Quarter-CIF (SQCIF)",								"Mobile phones",		"CCITT/ITU H.261"},
+{176,	120,	21120,		"22:15",	"QCIF",		"Quarter-CIF (QCIF) (NTSC)",							"Mobile phones",		"CCITT/ITU H.261"},
+{176,	144,	25344,		"11:9",		"QCIFP",	"Quarter-CIF (QCIF) (PAL)",								"Mobile phones",		"CCITT/ITU H.261"},
+{320,	200,	64000,		"4:3",		"CGA",		"Computer Graphics Adaptor (CGA)",						"Computer monitors",	"VESA"},
+{320,	240,	76800,		"4:3",		"QVGA",		"Quarter-VGA (QVGA)",									"PDAs, Smartphones",	"PC industry"},
+{352,	240,	84480,		"22:15",	"CIF",		"Common Intermediate Format (CIF) (NTSC)",				"Video teleconferencing",	"CCITT/ITU H.261"},
+{352,	288,	101376,		"11:9",		"CIFP",		"Common Intermediate Format (CIF) (PAL)",				"Video teleconferencing",	"CCITT/ITU H.261"},
+{640,	400,	256000,		"4:3",		"EGA",		"Enhanced Graphics Adaptor (EGA)",						"Computer monitors",	"VESA"},
+{640,	480,	307200,		"4:3",		"VGA",		"Video Graphics Adaptor (VGA)",							"Computer monitors",	"VESA"},
+{704,	240,	168960,		"44:15",	"2CIF",		"Double Common Intermediate Format (2CIF) (NTSC)",		"Digital video",		"CCITT/ITU H.261"},
+{704,	288,	202752,		"22:9",		"2CIFP",	"Double Common Intermediate Format (2CIF) (PAL)",		"Digital video",		"CCITT/ITU H.261"},
+{720,	350,	252000,		"72:35",	"MDA",		"Monochrome Display Adaptor (MDA)[1]",					"Computer monitors",	"IBM"},
+{704,	480,	337920,		"22:15",	"4CIF",		"Quadruple Common Intermediate Format (4CIF) (NTSC)",	"Digital video",		"CCITT/ITU H.261"},
+{704,	576,	405504,		"11:9",		"4CIFP",	"Quadruple Common Intermediate Format (4CIF) (PAL)",	"Digital video",		"CCITT/ITU H.261"},
+{720,	480,	345600,		"3:2",		"D1",		"Digital 525/60 video standard[2][3] (D1 NTSC)",		"Digital video",		"ITU-R BT.601"},
+{720,	576,	414720,		"5:4",		"D1P",		"Digital 625/50 video standard[2][3] (D1 PAL)",			"Digital video",		"ITU-R BT.601"},
+{768,	483,	370944,		"256:161",	"",			"Non-standard 525/60 video[4][3]",						"Digital video",		"SMPTE 244M"},
+{768,	576,	442368,		"4:3",		"",			"'Square-pixel' 625/50 video",							"Digital video",		""},
+{800,	600,	480000,		"4:3",		"SVGA",		"Super VGA (SVGA) standard",							"Computer monitors",	"VESA"},
+{854,	480,	409920,		"16:9",		"",			"Widescreen 480-line format[5]",						"LCD/PDP TV displays",	""},
+{948,	576,	546048,		"79:48",	"",			"Non-standard 625/60 video[4][3]",						"Digital video",		""},
+{1024,	576,	589824,		"16:9",		"",			"Widescreen 576-line eXtended Graphics Array (XGA)",	"Computer monitors",	"VESA"},
+{1024,	768,	786432,		"4:3",		"XGA",		"eXtended Graphics Array (XGA)",						"Computer monitors",	"VESA"},
+{1152,	768,	884736,		"3:2",		"",			"Wide Aspect",											"Computer monitors",	""},
+{1152,	864,	995328,		"4:3",		"",			"Apple Computer 1 Megapixel standard",					"Computer monitors",	"Apple"},
+{1280,	720,	921600,		"16:9",		"720p",		"720p HDTV format",										"Digital television",	"ATSC"},
+{1280,	800,	983040,		"16:10",	"WXGA",		"Wide XGA (WXGA)",										"Computer monitors",	"PC industry"},
+{1280,	854,	1093120,	"3:2",		"",			"Wide Aspect",											"Computer monitors",	""},
+{1280,	960,	1228800,	"4:3",		"",			"4:3 alternative to SXGA",								"Computer monitors",	"PC industry"},
+{1280,	1024,	1310720,	"5:4",		"SXGA",		"Super XGA (SXGA) standard",							"Computer monitors",	"Unix workstations"},
+{1366,	768,	1049088,	"16:9",		"",			"768-line Wide XGA format[5]",							"LCD/PDP TV displays",	""},
+{1440,	900,	1296000,	"16:10",	"WXGA+",	"Wide XGA+ (WXGA) or Wide SXGA (WSXGA) or",				"Computer monitors",	"VESA"},
+{1440,	900,	1296000,	"16:10",	"WSXGA",	"Wide XGA+ (WXGA) or Wide SXGA (WSXGA) or",				"Computer monitors",	"VESA"},
+{1440,	960,	1382400,	"3:2",		"",			"Wide Aspect",											"Computer monitors",	""},
+{1400,	1050,	1470000,	"4:3",		"SXGA+",	"SXGA+",												"Notebook LCD panels",	"PC industry"},
+{1680,	1050,	1764000,	"16:10",	"WSXGA+",	"Wide SXGA+ (WSXGA+)",									"Computer monitors",	"VESA"},
+{1600,	1200,	1920000,	"4:3",		"UXGA",		"Ultra XGA (UXGA)",										"Computer monitors",	"VESA"},
+// 1792 1344 (vmware)
+// 1856 1392 (vmware)
+// 1920 1440 (vmware)
+{1920,	1080,	2073600,	"16:9",		"1080p",	"1080p 16:9 HDTV standard format",						"HDTV technologies",	"ATSC"},
+{1920,	1200,	2304000,	"16:10",	"WUXGA",	"Wide UXGA (WUXGA)",									"Computer monitors",	"PC industry"},
+{2048,	1152,	2359296,	"16:9",		"",			"16:9 European HDTV format",							"HDTV technologies",	"DVB-T"},
+{2048,	1536,	3145728,	"4:3",		"QXGA",		"Quad XGA (QXGA)",										"Computer monitors",	"VESA"},
+{2560,	1600,	4096000,	"16:10",	"WQXGA",	"Wide QXGA (WQXGA)",									"Computer monitors",	"VESA"},
+{2560,	2048,	5242880,	"5:4",		"QSXGA",	"Quad Super XGA (QSXGA)",								"Computer monitors",	"VESA"},
+{3200,	2048,	6553600,	"25:16",	"WQSXGA",	"Wide QSXGA (WQSXGA)",									"Computer monitors",	"VESA"},
+{3200,	2400,	7680000,	"4:3",		"QUXGA",	"Quad Ultra XGA (QUXGA)",								"Computer monitors",	"VESA"},
+{3840,	2400,	9216000,	"16:10",	"WQUXGA",	"Wide QUXGA (WQUXGA)",									"Computer monitors",	"VESA"},
+{4096,	3072,	12582912,	"4:3",		"HXGA",		"Hexadecatuple XGA (HXGA)",								"Computer monitors",	"VESA"},
+{5120,	3200,	16384000,	"16:10",	"WHXGA",	"Wide HXGA (WHXGA)",									"Computer monitors",	"VESA"},
+{5120,	4096,	20971520,	"5:4",		"HSXGA",	"Hexadecatuple Super XGA (HSXGA)",						"Computer monitors",	"VESA"},
+{6400,	4096,	26214400,	"25:16",	"WHSXGA",	"Wide HSXGA (WHSXGA)",									"Computer monitors",	"VESA"},
+{6400,	4800,	30720000,	"4:3",		"HUXGA",	"Hexadecatuple Ultra XGA (HUXGA)",						"Computer monitors",	"VESA"},
+{7680,	4320,	33177600,	"16:9",		"UHDV",		"Ultra High Definition Video (UHDV)",					"HDTV Technologies",	""},
+{7680,	4800,	36864000,	"16:10",	"WHUXGA",	"Wide HUXGA (WHUXGA)",									"Computer monitors",	"VESA"}
 };
 
 static void usage() {
@@ -950,7 +1004,7 @@ int main(int argc, char **argv) {
 			if (atoi(argv[optind]) == 0) {
 				n = sizeof(resolutions) / sizeof(resolutions[0]);
 				for (int i = 0; i < n; ++i) {
-					if (_stricmp(argv[optind], resolutions[i].name) == 0) {
+					if (resolutions[i].name != "" && _stricmp(argv[optind], resolutions[i].name) == 0) {
 						opt.width = resolutions[i].width;
 						opt.height = resolutions[i].height;
 						break;
