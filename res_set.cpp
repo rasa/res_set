@@ -2,7 +2,7 @@
 
 $Id$
 
-Copyright (c) 2005-2007 Ross Smith II (http://smithii.com). All rights reserved.
+Copyright (c) 2005-2011 Ross Smith II (http://smithii.com). All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of version 2 of the GNU General Public License
@@ -143,14 +143,13 @@ static struct option long_options[] = {
 };
 
 struct _resolution {
+	char	*name;
 	int 	width;
 	int 	height;
-	int		pixels;
-	char	*ratio;
-	char	*name;
 	char	*description;
-	char	*application;
-	char	*organization;
+	char	*sar;
+	char	*dar;
+	char	*pixels;
 };
 
 typedef struct _resolution Resolution;
@@ -158,66 +157,161 @@ typedef struct _resolution Resolution;
 static Resolution resolutions[] = {
 /*
 source: http://en.wikipedia.org/wiki/List_of_common_resolutions
-added:  CGA, EGA
+added:  CGA, EGA, WSVGA
 							aspect
-h		v		pixels		ratio		name		description												application				organization
+width	height	pixels		ratio		name		description												application				organization
 -------	-------	-----------	-----------	-----------	-------------------------------------------------------	-----------------------	--------------------- */
-{128,	96,		12288,		"4:3",		"SQCIF",	"Sub Quarter-CIF (SQCIF)",								"Mobile phones",		"CCITT/ITU H.261"},
-{176,	120,	21120,		"22:15",	"QCIF",		"Quarter-CIF (QCIF) (NTSC)",							"Mobile phones",		"CCITT/ITU H.261"},
-{176,	144,	25344,		"11:9",		"QCIFP",	"Quarter-CIF (QCIF) (PAL)",								"Mobile phones",		"CCITT/ITU H.261"},
-{320,	200,	64000,		"4:3",		"CGA",		"Computer Graphics Adaptor (CGA)",						"Computer monitors",	"VESA"},
-{320,	240,	76800,		"4:3",		"QVGA",		"Quarter-VGA (QVGA)",									"PDAs, Smartphones",	"PC industry"},
-{352,	240,	84480,		"22:15",	"CIF",		"Common Intermediate Format (CIF) (NTSC)",				"Video teleconferencing",	"CCITT/ITU H.261"},
-{352,	288,	101376,		"11:9",		"CIFP",		"Common Intermediate Format (CIF) (PAL)",				"Video teleconferencing",	"CCITT/ITU H.261"},
-{640,	400,	256000,		"4:3",		"EGA",		"Enhanced Graphics Adaptor (EGA)",						"Computer monitors",	"VESA"},
-{640,	480,	307200,		"4:3",		"VGA",		"Video Graphics Adaptor (VGA)",							"Computer monitors",	"VESA"},
-{704,	240,	168960,		"44:15",	"2CIF",		"Double Common Intermediate Format (2CIF) (NTSC)",		"Digital video",		"CCITT/ITU H.261"},
-{704,	288,	202752,		"22:9",		"2CIFP",	"Double Common Intermediate Format (2CIF) (PAL)",		"Digital video",		"CCITT/ITU H.261"},
-{720,	350,	252000,		"72:35",	"MDA",		"Monochrome Display Adaptor (MDA)[1]",					"Computer monitors",	"IBM"},
-{704,	480,	337920,		"22:15",	"4CIF",		"Quadruple Common Intermediate Format (4CIF) (NTSC)",	"Digital video",		"CCITT/ITU H.261"},
-{704,	576,	405504,		"11:9",		"4CIFP",	"Quadruple Common Intermediate Format (4CIF) (PAL)",	"Digital video",		"CCITT/ITU H.261"},
-{720,	480,	345600,		"3:2",		"D1",		"Digital 525/60 video standard[2][3] (D1 NTSC)",		"Digital video",		"ITU-R BT.601"},
-{720,	576,	414720,		"5:4",		"D1P",		"Digital 625/50 video standard[2][3] (D1 PAL)",			"Digital video",		"ITU-R BT.601"},
-{768,	483,	370944,		"256:161",	"",			"Non-standard 525/60 video[4][3]",						"Digital video",		"SMPTE 244M"},
-{768,	576,	442368,		"4:3",		"",			"'Square-pixel' 625/50 video",							"Digital video",		""},
-{800,	600,	480000,		"4:3",		"SVGA",		"Super VGA (SVGA) standard",							"Computer monitors",	"VESA"},
-{854,	480,	409920,		"16:9",		"",			"Widescreen 480-line format[5]",						"LCD/PDP TV displays",	""},
-{948,	576,	546048,		"79:48",	"",			"Non-standard 625/60 video[4][3]",						"Digital video",		""},
-{1024,	576,	589824,		"16:9",		"",			"Widescreen 576-line eXtended Graphics Array (XGA)",	"Computer monitors",	"VESA"},
-{1024,	768,	786432,		"4:3",		"XGA",		"eXtended Graphics Array (XGA)",						"Computer monitors",	"VESA"},
-{1152,	768,	884736,		"3:2",		"",			"Wide Aspect",											"Computer monitors",	""},
-{1152,	864,	995328,		"4:3",		"",			"Apple Computer 1 Megapixel standard",					"Computer monitors",	"Apple"},
-{1280,	720,	921600,		"16:9",		"720p",		"720p HDTV format",										"Digital television",	"ATSC"},
-{1280,	800,	983040,		"16:10",	"WXGA",		"Wide XGA (WXGA)",										"Computer monitors",	"PC industry"},
-{1280,	854,	1093120,	"3:2",		"",			"Wide Aspect",											"Computer monitors",	""},
-{1280,	960,	1228800,	"4:3",		"",			"4:3 alternative to SXGA",								"Computer monitors",	"PC industry"},
-{1280,	1024,	1310720,	"5:4",		"SXGA",		"Super XGA (SXGA) standard",							"Computer monitors",	"Unix workstations"},
-{1366,	768,	1049088,	"16:9",		"",			"768-line Wide XGA format[5]",							"LCD/PDP TV displays",	""},
-{1440,	900,	1296000,	"16:10",	"WXGA+",	"Wide XGA+ (WXGA) or Wide SXGA (WSXGA) or",				"Computer monitors",	"VESA"},
-{1440,	900,	1296000,	"16:10",	"WSXGA",	"Wide XGA+ (WXGA) or Wide SXGA (WSXGA) or",				"Computer monitors",	"VESA"},
-{1440,	960,	1382400,	"3:2",		"",			"Wide Aspect",											"Computer monitors",	""},
-{1400,	1050,	1470000,	"4:3",		"SXGA+",	"SXGA+",												"Notebook LCD panels",	"PC industry"},
-{1680,	1050,	1764000,	"16:10",	"WSXGA+",	"Wide SXGA+ (WSXGA+)",									"Computer monitors",	"VESA"},
-{1600,	1200,	1920000,	"4:3",		"UXGA",		"Ultra XGA (UXGA)",										"Computer monitors",	"VESA"},
-// 1792 1344 (vmware)
-// 1856 1392 (vmware)
-// 1920 1440 (vmware)
-{1920,	1080,	2073600,	"16:9",		"1080p",	"1080p 16:9 HDTV standard format",						"HDTV technologies",	"ATSC"},
-{1920,	1200,	2304000,	"16:10",	"WUXGA",	"Wide UXGA (WUXGA)",									"Computer monitors",	"PC industry"},
-{2048,	1152,	2359296,	"16:9",		"",			"16:9 European HDTV format",							"HDTV technologies",	"DVB-T"},
-{2048,	1536,	3145728,	"4:3",		"QXGA",		"Quad XGA (QXGA)",										"Computer monitors",	"VESA"},
-{2560,	1600,	4096000,	"16:10",	"WQXGA",	"Wide QXGA (WQXGA)",									"Computer monitors",	"VESA"},
-{2560,	2048,	5242880,	"5:4",		"QSXGA",	"Quad Super XGA (QSXGA)",								"Computer monitors",	"VESA"},
-{3200,	2048,	6553600,	"25:16",	"WQSXGA",	"Wide QSXGA (WQSXGA)",									"Computer monitors",	"VESA"},
-{3200,	2400,	7680000,	"4:3",		"QUXGA",	"Quad Ultra XGA (QUXGA)",								"Computer monitors",	"VESA"},
-{3840,	2400,	9216000,	"16:10",	"WQUXGA",	"Wide QUXGA (WQUXGA)",									"Computer monitors",	"VESA"},
-{4096,	3072,	12582912,	"4:3",		"HXGA",		"Hexadecatuple XGA (HXGA)",								"Computer monitors",	"VESA"},
-{5120,	3200,	16384000,	"16:10",	"WHXGA",	"Wide HXGA (WHXGA)",									"Computer monitors",	"VESA"},
-{5120,	4096,	20971520,	"5:4",		"HSXGA",	"Hexadecatuple Super XGA (HSXGA)",						"Computer monitors",	"VESA"},
-{6400,	4096,	26214400,	"25:16",	"WHSXGA",	"Wide HSXGA (WHSXGA)",									"Computer monitors",	"VESA"},
-{6400,	4800,	30720000,	"4:3",		"HUXGA",	"Hexadecatuple Ultra XGA (HUXGA)",						"Computer monitors",	"VESA"},
-{7680,	4320,	33177600,	"16:9",		"UHDV",		"Ultra High Definition Video (UHDV)",					"HDTV Technologies",	""},
-{7680,	4800,	36864000,	"16:10",	"WHUXGA",	"Wide HUXGA (WHUXGA)",									"Computer monitors",	"VESA"}
+
+// Name	Width	Height	Standard	SAR	DAR	Pixels				
+{"",	16,	16,	"Microvision",	"0.042361111",	"1",	"256"			},
+{"",	32,	32,	"PocketStation",	"0.042361111",	"1",	"1024"			},
+{"",	40,	30,	"Etch A Sketch Animator",	"0.16875",	"1.333",	"1200"			},
+{"",	48,	32,	"GameKing I (GM-218), VMU",	"0.126388889",	"1.5",	"1536"			},
+{"",	64,	64,	"Hartung Game Master",	"0.042361111",	"1",	"4096"			},
+{"",	75,	64,	"Epoch Game Pocket Computer",	"75:64",	"1.172",	"4800"			},
+{"",	150,	40,	"Entex Adventure Vision",	"0.627777778",	"3.75",	"6000"			},
+{"",	96,	64,	"Pokémon mini",	"0.126388889",	"1.5",	"6144"			},
+{"",	102,	64,	"Ruputer",	"2.147222222",	"0.627",	"6528"			},
+{"",	240,	64,	"Atari Portfolio, TRS-80 Model 100",	"0.627777778",	"3.75",	"15360"			},
+{"",	160,	102,	"Atari Lynx",	"3.36875",	"1.569",	"16320"			},
+{"",	160,	120,	"QQVGA",	"0.16875",	"1.333",	"19200"			},
+{"",	120,	160,	"QQVGA (portrait mode)",	"0.127777778",	"0.75",	"19200"			},
+{"",	160,	144,	"Nintendo Game Boy, Game Boy Color",	"0.422916667",	"1.111",	"23040"			},
+{"",	160,	152,	"Neo Geo Pocket Color",	"0.846527778",	"1.053",	"24320"			},
+{"",	160,	160,	"Palm (PDA) LoRES",	"0.042361111",	"1",	"25600"			},
+{"",	140,	192,	"Apple II HiRes (6 color) and Apple IIe Double HiRes (16 color), grouping subpixels",	"1.491666667",	"0.729",	"26880"			},
+{"",	160,	200,	"VIC-II multicolor, IBM PCjr 16-color, Amstrad CPC",	"0.170138889",	"0.8",	"32000"			},
+{"",	224,	144,	"WonderSwan",	"0.589583333",	"1.555",	"32256"			},
+{"",	176,	208,	"Nokia Series 60 smartphones (Nokia 7650, plus First and Second Edition models only)",	"0.467361111",	"0.846",	"36608"			},
+{"",	240,	160,	"HQVGA, Nintendo Game Boy Advance",	"0.126388889",	"1.5",	"38400"			},
+{"",	160,	240,	"HQVGA (portrait mode)",	"0.085416667",	"0.667",	"38400"			},
+{"",	176,	220,	"Older Java MIDP devices like Sony Ericsson K600",	"0.170138889",	"0.8",	"38720"			},
+{"",	160,	256,	"Acorn BBC 20 column modes",	"0.213888889",	"0.625",	"40960"			},
+{"",	208,	208,	"Nokia 5500 Sport",	"0.042361111",	"1",	"43264"			},
+{"",	256,	192,	"TMS9918 Modes 1 (e.g. TI-99/4a) and 2, ZX Spectrum, MSX, Nintendo DS (each screen)",	"0.16875",	"1.333",	"49152"			},
+{"",	280,	192,	"Apple II HiRes (1 bit per pixel)",	"1.475",	"1.458",	"53760"			},
+{"",	240,	240,	"Apple iPod Nano 6G",	"0.042361111",	"1",	"57600"			},
+{"",	320,	192,	"Atari 400/800",	"0.210416667",	"1.667",	"61440"			},
+{"CGA",	320,	200,	"CGA 4-color, Atari ST 16 color, Commodore 64 VIC-II Hires, Amiga OCS NTSC Lowres, Apple IIGS LoRes, MCGA",	"0.336805556",	"1.6",	"64000"			},
+{"",	256,	256,	"Elektronika BK",	"0.042361111",	"1",	"65536"			},
+{"",	208,	320,	"UIQ 2.x based smartphones",	"0.555555556",	"0.65",	"66560"			},
+{"",	320,	224,	"Sega Nomad",	"0.421527778",	"1.429",	"71680"			},
+{"QVGA",	320,	240,	"QVGA, Mega Drive, Nintendo 3DS (lower screen)",	"0.16875",	"1.333",	"76800"			},
+{"",	240,	320,	"QVGA (portrait mode)",	"0.127777778",	"0.75",	"76800"			},
+{"",	320,	256,	"Acorn BBC 40 column modes, Amiga OCS PAL Lowres",	"0.211111111",	"1.25",	"81920"			},
+{"",	400,	240,	"WQVGA (common on Windows Mobile 6 handsets)",	"0.210416667",	"1.667",	"96000"			},
+{"",	320,	320,	"Palm (PDA) HiRES",	"0.042361111",	"1",	"102400"			},
+{"WQVGA",	432,	240,	"WQVGA",	"0.378472222",	"1.8",	"103680"			},
+{"",	560,	192,	"Apple IIe Double Hires (1 bit per pixel)",	"1.466666667",	"2.917",	"107520"			},
+{"",	400,	270,	"TurboExpress",	"1.685416667",	"1.481",	"108000"			},
+{"",	480,	234,	"A WQVGA variant, used commonly for Portable DVD Players, Digital photo frames, GPS receivers and devices such as the Kenwood DNX-5120, and Glospace SGK-70. Often falsely marketed as \"16:9\"",	"3.360416667",	"2.051",	"112320"			},
+{"",	480,	250,	"Teletext and Viewdata 40×25 character screens (PAL non-interlaced)",	"2.017361111",	"1.92",	"120000"			},
+{"",	400,	300,	"Quarter SVGA (no official name, selectable in some PC shooters)",	"0.16875",	"1.333",	"120000"			},
+{"",	240,	376,	"Apple iPod Nano 5G (portrait mode)",	"0.684027778",	"0.64",	"120320"			},
+{"",	640,	200,	"Atari ST 4 color, CGA mono, Amiga OCS NTSC Hires, Apple IIGS HiRes, Nokia Series 80 smartphones",	"0.670138889",	"3.2",	"128000"			},
+{"",	480,	272,	"Sony PlayStation Portable (note: When playing video files created by user, the max. resolution is restricted to 368x208(16:9) or 320x240(4:3)), Zune HD",	"1.261805556",	"1.765",	"130560"			},
+{"",	512,	256,	"Elektronika BK",	"0.084027778",	"2",	"131072"			},
+{"",	352,	416,	"Nokia Series 60 smartphones (E60, E70, N80, N90)",	"0.467361111",	"0.846",	"146432"			},
+{"HVGA",	640,	240,	"HVGA, Handheld PC",	"0.335416667",	"2.667",	"153600"			},
+{"",	480,	320,	"HVGA, Palm Tungsten T3 Apple iPhone, 3G, & 3GS",	"0.126388889",	"1.5",	"153600"			},
+{"",	320,	480,	"HVGA (portrait), Palm (PDA) HiRES+",	"0.085416667",	"0.667",	"153600"			},
+{"",	240,	640,	"HVGA (portrait mode)",	"0.130555556",	"0.375",	"153600"			},
+{"",	640,	256,	"Acorn BBC 80 column modes, Amiga OCS PAL Hires",	"0.209722222",	"2.5",	"163840"			},
+{"",	512,	342,	"Black & white Macintosh (9\")",	"0.126388889",	"1.5",	"175104"			},
+{"",	800,	240,	"Nintendo 3DS (upper screen in 3D mode) (2x 400x240, one for each eye)",	"0.41875",	"3.333",	"192000"			},
+{"",	512,	384,	"Macintosh LC (12\")/Color Classic (also selectable in many PC shooters)",	"0.16875",	"1.333",	"196608"			},
+{"",	640,	320,	"Nokia Series 90 smartphones (7700, 7710)",	"0.084027778",	"2",	"204800"			},
+{"EGA",	640,	350,	"EGA",	"2.690972222",	"1.829",	"224000"			},
+{"",	640,	360,	"nHD, used by Nokia 5800, Nokia 5530, Nokia X6, Nokia N97, Nokia N8 [2]",	"0.672916667",	"1.778",	"230400"			},
+{"",	480,	500,	"Teletext and Viewdata 40×25 character screens (PAL interlaced)",	"1.017361111",	"0.96",	"240000"			},
+{"",	720,	348,	"HGC",	"2.520138889",	"2.069",	"250560"			},
+{"MDA",	720,	350,	"MDA",	"3.024305556",	"2.057",	"252000"			},
+{"",	640,	400,	"Atari ST mono, Amiga OCS NTSC Hires interlaced",	"0.336805556",	"1.6",	"256000"			},
+{"",	720,	364,	"Apple Lisa",	"180:91",	"1.978",	"262080"			},
+{"D1",	720,	480,	"D1", "", "", ""},
+{"D1P",	720,	576,	"D1P", "", "", ""},
+{"",	800,	352,	"Nokia E90 Communicator",	"1.049305556",	"2.273",	"281600"			},
+{"",	600,	480,	"(unnamed)",	"0.211111111",	"1.25",	"288000"			},
+{"VGA",	640,	480,	"VGA, MCGA (in monochome), Sun-1 color",	"0.16875",	"1.333",	"307200"			},
+{"",	640,	512,	"Amiga OCS PAL Hires interlaced",	"0.211111111",	"1.25",	"327680"			},
+{"WVGA",	768,	480,	"WVGA",	"0.673611111",	"1.6",	"368640"			},
+{"WGA",	800,	480,	"WVGA or WGA, List of mobile phones with WVGA display, Nokia 770/800N/N810/N900, Asus Eee PC 700 and 701 series, Pandora",	"0.210416667",	"1.667",	"384000"			},
+{"FWVGA",	854,	480,	"FWVGA, List of mobile phones with FWVGA display",	"~16:9",	"1.783",	"410880"			},
+{"SVGA",	800,	600,	"SVGA",	"0.16875",	"1.333",	"480000"			},
+{"QHD",	960,	540,	"QHD[3], Quarter FHD (AACS ICT), HRHD, Motorola Atrix 4G",	"0.672916667",	"1.778",	"518400"			},
+{"",	832,	624,	"Apple Macintosh Half Megapixel[4]",	"0.16875",	"1.333",	"519168"			},
+{"",	960,	544,	"PlayStation Vita",	"1.261805556",	"1.765",	"522240"			},
+{"WSVGA",	1024,	576,	"WSVGA",	"0.672916667",	"1.778",	"589824"			},
+{"",	1024,	600,	"Used in many netbooks",	"128:75",	"1.707",	"614400"			},
+{"DVGA",	960,	640,	"DVGA, Apple iPhone 4[5][6],4th Generation iPod Touch[7]",	"0.126388889",	"1.5",	"614400"			},
+{"",	1024,	640,	"(Norm. Laptops)",	"0.673611111",	"1.6",	"655360"			},
+{"",	960,	720,	"Panasonic DVCPRO100 for 50/60Hz over 720p - SMPTE Resolution",	"0.16875",	"1.333",	"691200"			},
+{"XGA",	1024,	768,	"XGA, Apple iPad",	"0.16875",	"1.333",	"786432"			},
+{"",	1024,	800,	"Sun-1 monochrome",	"1.350694444",	"1.28",	"819200"			},
+{"",	1152,	720,	"(unnamed)",	"0.673611111",	"1.6",	"829440"			},
+{"",	1152,	768,	"Apple PowerBook G4 (original Titanium version)",	"0.126388889",	"1.5",	"884736"			},
+{"720p",	1280,	720,	"720p (WXGA-H, min.)",	"0.672916667",	"1.778",	"921600"			},
+{"WXGA-H",	1280,	720,	"720p (WXGA-H, min.)",	"0.672916667",	"1.778",	"921600"			},
+{"",	1120,	832,	"NeXT MegaPixel Display",	"1.476388889",	"1.346",	"931840"			},
+{"WXGA-",	1280,	768,	"WXGA, avg., BrightView",	"0.210416667",	"1.667",	"983040"			},
+{"XGA+",	1152,	864,	"XGA+[8]",	"0.16875",	"1.333",	"995328"			},
+{"WXGA",	1280,	800,	"WXGA, max.",	"0.673611111",	"1.6",	"1024000"			},
+{"",	1152,	900,	"Sun-2 Prime Monochrome or Color Video, also common in Sun-3 and Sun-4 workstations",	"1.350694444",	"1.28",	"1036800"			},
+{"",	1024,	1024,	"Network Computing Devices",	"0.042361111",	"1",	"1048576"			},
+{"720p+",	1366,	768,	"standardized HDTV 720p/1080i displays, HD",	"~16:9",	"1.779",	"1049088"			},
+{"HD",	1366,	768,	"standardized HDTV 720p/1080i displays, HD",	"~16:9",	"1.779",	"1049088"			},
+{"",	1280,	854,	"Apple PowerBook G4",	"~3:2",	"1.499",	"1093120"			},
+{"",	1600,	768,	"Sony VAIO P series",	"1.05",	"2.083",	"1228800"			},
+{"SXGA-",	1280,	960,	"SXGA-",	"0.16875",	"1.333",	"1228800"			},
+{"WSXGA",	1440,	900,	"WSXGA, WXGA+",	"0.673611111",	"1.6",	"1296000"			},
+{"WXGA+",	1440,	900,	"WSXGA, WXGA+",	"0.673611111",	"1.6",	"1296000"			},
+{"SXGA",	1280,	1024,	"SXGA",	"0.211111111",	"1.25",	"1310720"			},
+{"",	1440,	960,	"Apple PowerBook G4",	"0.126388889",	"1.5",	"1382400"			},
+{"900p",	1600,	900,	"900p, HD+",	"0.672916667",	"1.778",	"1440000"			},
+{"HD+",	1600,	900,	"900p, HD+",	"0.672916667",	"1.778",	"1440000"			},
+{"SXGA+",	1400,	1050,	"SXGA+",	"0.16875",	"1.333",	"1470000"			},
+{"",	1440,	1024,	"(unnamed, similar to A4 paper format)",	"1.897222222",	"1.406",	"1474560"			},
+{"",	1440,	1080,	"HDV 1080i",	"0.16875",	"1.333",	"1555200"			},
+{"",	1600,	1024,	"SGI 1600SW",	"1.052777778",	"1.5625",	"1638400"			},
+{"WSXGA+",	1680,	1050,	"WSXGA+",	"0.673611111",	"1.6",	"1764000"			},
+{"UXGA",	1600,	1200,	"UXGA",	"0.16875",	"1.333",	"1920000"			},
+//{"1080",	1920,	1080,	"HD 1080 (1080i, 1080p), FullHD",	"0.672916667",	"1.778",	"2073600"			},
+{"1080i",	1920,	1080,	"HD 1080 (1080i, 1080p), FullHD",	"0.672916667",	"1.778",	"2073600"			},
+{"1080p",	1920,	1080,	"HD 1080 (1080i, 1080p), FullHD",	"0.672916667",	"1.778",	"2073600"			},
+{"WUXGA",	1920,	1200,	"WUXGA",	"0.673611111",	"1.6",	"2304000"			},
+{"QWXGA",	2048,	1152,	"QWXGA, 2K",	"0.672916667",	"1.778",	"2359296"			},
+{"2K",	2048,	1152,	"QWXGA, 2K",	"0.672916667",	"1.778",	"2359296"			},
+{"",	1792,	1344,	"(unnamed; supported by some GPUs, monitors, and games)",	"0.16875",	"1.333",	"2408448"			},
+{"",	1856,	1392,	"(unnamed; supported by some GPUs, monitors, and games)",	"0.16875",	"1.333",	"2583552"			},
+{"",	2880,	900,	"NEC CRV43[9], Ostendo CRVD[10], Alienware Curved Display[11][12]",	"0.670138889",	"3.2",	"2592000"			},
+{"",	1800,	1440,	"(unnamed; supported by some GPUs, monitors, and games)",	"0.211111111",	"1.25",	"2592000"			},
+{"",	2048,	1280,	"(unnamed)",	"0.673611111",	"1.6",	"2621440"			},
+{"TXGA",	1920,	1400,	"TXGA",	"2.024305556",	"1.371",	"2688000"			},
+{"",	2538,	1080,	"Avielo Optix SuperWide 235 projector[13]",	"1.972222222",	"2.35",	"2741040"			},
+{"",	2560,	1080,	"Cinema TV from Philips and Vizio, falsely marketed as '21:9'",	"2.685416667",	"2.37",	"2764800"			},
+{"",	1920,	1440,	"(unnamed; supported by some GPUs, monitors, and games)",	"0.16875",	"1.333",	"2764800"			},
+{"QXGA",	2048,	1536,	"QXGA",	"0.16875",	"1.333",	"3145728"			},
+{"",	2304,	1440,	"(unnamed; maximum resolution of the Sony GDM-FW900 and Hewlett Packard A7217A)",	"0.673611111",	"1.6",	"3317760"			},
+{"WQHD",	2560,	1440,	"WQHD (Dell UltraSharp U2711, Apple iMac)",	"0.672916667",	"1.778",	"3686400"			},
+{"",	2304,	1728,	"(unnamed; selectable on some displays and graphics cards[14][15])",	"0.16875",	"1.333",	"3981312"			},
+{"WQXGA",	2560,	1600,	"WQXGA",	"0.673611111",	"1.6",	"4096000"			},
+{"",	2560,	1920,	"(unnamed; the maximum 4:3 resolution of CRT displays. Supported by the Viewsonic P225f and some graphics cards)",	"0.16875",	"1.333",	"4915200"			},
+{"QSXGA",	2560,	2048,	"QSXGA",	"0.211111111",	"1.25",	"5242880"			},
+{"QSXGA+",	2800,	2100,	"QSXGA+",	"0.16875",	"1.333",	"5880000"			},
+{"WQSXGA",	3200,	2048,	"WQSXGA",	"1.052777778",	"1.5625",	"6553600"			},
+{"QUXGA",	3200,	2400,	"QUXGA",	"0.16875",	"1.333",	"7680000"			},
+{"QFHD",	3840,	2160,	"QFHD",	"0.672916667",	"1.778",	"8294400"			},
+{"WQUXGA",	3840,	2400,	"WQUXGA",	"0.673611111",	"1.6",	"9216000"			},
+{"4K",	4096,	2304,	"4K",	"0.672916667",	"1.778",	"9437184"			},
+{"HXGA",	4096,	3072,	"HXGA",	"0.16875",	"1.333",	"12582912"			},
+{"WHXGA",	5120,	3200,	"WHXGA",	"0.673611111",	"1.6",	"16384000"			},
+{"HSXGA",	5120,	4096,	"HSXGA",	"0.211111111",	"1.25",	"20971520"			},
+{"WHSXGA",	6400,	4096,	"WHSXGA",	"1.052777778",	"1.5625",	"26214400"			},
+{"HUXGA",	6400,	4800,	"HUXGA",	"0.16875",	"1.333",	"30720000"			},
+{"UHDTV",	7680,	4320,	"UHDTV",	"0.672916667",	"1.778",	"33177600"			},
+{"8K",	8192,	4320,	"8K",	"256:135",	"1.896",	"35389440"			},
+{"WHUXGA",	7680,	4800,	"WHUXGA",	"0.673611111",	"1.6",	"36864000"			},
+{"",	28000,	9334,	"Red Epic 617",	"0.125694444",	"3",	"261352000"			}
 };
 
 static void usage() {
@@ -367,7 +461,7 @@ static DWORD set_orientation(int orientation) {
 	return -1;
 }
 
-static get_current_settings() {
+static int get_current_settings() {
 	int rv;
 	DEVMODE devmode;
 	ZeroMemory(&devmode, sizeof(DEVMODE));
@@ -796,17 +890,26 @@ static int set_arg(int *i, char *optarg) {
 }
 
 int main(int argc, char **argv) {
+printf("%s\n", __LINE__);
 	int rv = 0;
+printf("%s\n", __LINE__);
 	int mode_no = -1;
 
+printf("%s\n", __LINE__);
 #ifdef _DEBUG_ALLOC
+printf("%s\n", __LINE__);
     InitAllocCheck();
+printf("%s\n", __LINE__);
 #endif
+printf("%s\n", __LINE__);
 	progname = basename(argv[0]);
+printf("%s\n", __LINE__);
 
 	int len = strlen(progname);
+printf("%s\n", __LINE__);
 	if (len > 4 && _stricmp(progname + len - 4, ".exe") == 0)
 		progname[len - 4] = '\0';
+printf("%s\n", __LINE__);
 
 	opterr = 0;
 	optind = 1;
@@ -821,7 +924,9 @@ int main(int argc, char **argv) {
 
 	modes = get_mode_count();
 
+printf("%s\n", __LINE__);
 	while (1) {
+printf("%s\n", __LINE__);
 		int c;
 		int option_index = 0;
 
@@ -972,8 +1077,11 @@ int main(int argc, char **argv) {
 				break;
 
 			case 'v': // version
+printf("%s\n", __LINE__);
 				printf("%s - Version %s - %s\n", APPNAME, APPVERSION, __DATE__);
+printf("%s\n", __LINE__);
 				printf(APPCOPYRIGHT "\n\n");
+printf("%s\n", __LINE__);
 
 				printf(
 "This program is distributed in the hope that it will be useful,\n"
@@ -1001,7 +1109,7 @@ int main(int argc, char **argv) {
 
 	while (true) {
 		if (optind < argc && argv[optind]) {
-			if (atoi(argv[optind]) == 0) {
+//			if (atoi(argv[optind]) == 0) {
 				n = sizeof(resolutions) / sizeof(resolutions[0]);
 				for (int i = 0; i < n; ++i) {
 					if (resolutions[i].name != "" && _stricmp(argv[optind], resolutions[i].name) == 0) {
@@ -1012,7 +1120,7 @@ int main(int argc, char **argv) {
 				}
 				++optind;
 				continue;
-			}
+//			}
 
 			set_arg(&opt.width, argv[optind++]);
 		}

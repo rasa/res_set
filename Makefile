@@ -1,5 +1,5 @@
 # Makefile to build res_set
-# Copyright (c) 2004-2006 Ross Smith II (http://smithii.com). All rights reserved.
+# Copyright (c) 2004-2011 Ross Smith II (http://smithii.com). All rights reserved.
 # 
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of version 2 of the GNU General Public License 
@@ -14,7 +14,8 @@
 
 VER?=$(shell perl -n -e '/define\s+VER_STRING2\s+"(.*)"/ && print $$1' version.h)
 APP?=$(shell perl -n -e '/define\s+VER_INTERNAL_NAME\s+"(.*)"/ && print $$1' version.h)
-MSVC_DIR?=/cygdrive/c/PROGRA~1/MICROS~4/VC98
+VC98?=$(PROGRAMFILES)\\Microsoft Visual Studio\\VC98
+MSVC_DIR?=$(shell cygpath -u `cygpath -ds "$(VC98)"`)
 CYGENV=MAKEFLAGS="" PATH=$(MSVC_DIR)/bin:$$PATH
 APP_ZIP?=$(APP)-$(VER)-win32.zip
 SRC_ZIP?=$(APP)-$(VER)-win32-src.zip
@@ -22,7 +23,7 @@ ZIP?=zip
 ZIP_OPTS?=-9jquX
 CWD=$(shell pwd)
 APP_FILES=Release/$(APP).exe changelog.txt COPYING readme.txt
-SRC_FILES=$(APP_FILES) $(shell ls *.cpp *.c *.h *.hpp *.inl *.dsp *.dsw *.mak *.dep Makefile 2>nul)
+SRC_FILES=$(APP_FILES) $(shell ls *.cpp *.c *.h *.hpp *.inl *.dsp *.dsw *.mak *.dep Makefile 2>/dev/null)
 
 .PHONY:	dist
 dist:	all $(APP_ZIP) $(SRC_ZIP)

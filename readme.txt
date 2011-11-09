@@ -1,5 +1,5 @@
-res_set - Version 1.5 - Mar 03 2007
-Copyright (c) 2005-2006 Ross Smith II (http://smithii.com) All Rights Reserved
+res_set - Version 1.6 - Oct 22 2011
+Copyright (c) 2005-2011 Ross Smith II (http://smithii.com) All Rights Reserved
 
 ------------------------------------------------------------------------------
 
@@ -57,40 +57,74 @@ You can use / instead of - to preface single letter options, //width will *not* 
 
 Resolution can be entered as 'width height', or one of the following terms:
 
-	320x200		CGA		Computer Graphics Adaptor
-	640x400		EGA		Enhanced Graphics Adaptor
-	640x480		VGA		Video Graphics Adaptor
-	800x600		SVGA	Super VGA
-	1024x768	XGA		eXtended Graphics Array
-	1280x800	WXGA	Wide XGA
-	1280x1024	SXGA	Super XGA
-	1440x900	WXGA+	Wide XGA+
-	1440x900	WSXGA	Wide SXGA
-	1400x1050	SXGA	SXGA+
-	1680x1050	WSXGA+	Wide SXGA+
-	1600x1200	UXGA	Ultra XGA
-	1920x1200	WUXGA	Wide UXGA
-	2048x1536	QXGA	Quad XGA
-	2560x1600	WQXGA	Wide QXGA
-	2560x2048	QSXGA	Quad Super XGA
-	3200x2048	WQSXGA	Wide QSXGA
-	3200x2400	QUXGA	Quad Ultra XGA
-	3840x2400	WQUXGA	Wide QUXGA
-	4096x3072	HXGA	Hexadecatuple XGA
-	5120x3200	WHXGA	Wide HXGA
-	5120x4096	HSXGA	Hexadecatuple Super XGA
-	6400x4096	WHSXGA	Wide HSXGA
-	6400x4800	HUXGA	Hexadecatuple Ultra XGA
-	7680x4800	WHUXGA	Wide HUXGA
+       Term      W    H Description
+------ ---- ---- -------------------------
+CGA     320  200 CGA 4-color, Atari ST 16 color, Commodore 64 VIC-II Hires, Amiga OCS NTSC Lowres, Apple IIGS LoRes, MCGA
+QVGA    320  240 QVGA, Mega Drive, Nintendo 3DS (lower screen)
+WQVGA   432  240 WQVGA
+HVGA    640  240 HVGA, Handheld PC
+EGA     640  350 EGA
+MDA     720  350 MDA
+D1      720  480 D1 
+D1P     720  576 D1P 
+VGA     640  480 VGA, MCGA (in monochome), Sun-1 color
+WVGA    768  480 WVGA
+WGA     800  480 WVGA or WGA, List of mobile phones with WVGA display, Nokia 770/800N/N810/N900, Asus Eee PC 700 and 701 series, Pandora
+FWVGA   854  480 FWVGA, List of mobile phones with FWVGA display
+SVGA    800  600 SVGA
+QHD     960  540 QHD[3], Quarter FHD (AACS ICT), HRHD, Motorola Atrix 4G
+WSVGA  1024  576 WSVGA
+DVGA    960  640 DVGA, Apple iPhone 4[5][6],4th Generation iPod Touch[7]
+XGA    1024  768 XGA, Apple iPad
+720p   1280  720 720p (WXGA-H, min.)
+WXGA-H 1280  720 720p (WXGA-H, min.)
+WXGA-  1280  768 WXGA, avg., BrightView
+XGA+   1152  864 XGA+[8]
+WXGA   1280  800 WXGA, max.
+720p+  1366  768 standardized HDTV 720p/1080i displays, HD
+HD     1366  768 standardized HDTV 720p/1080i displays, HD
+SXGA-  1280  960 SXGA-
+WSXGA  1440  900 WSXGA, WXGA+
+WXGA+  1440  900 WSXGA, WXGA+
+SXGA   1280 1024 SXGA
+900p   1600  900 900p, HD+
+HD+    1600  900 900p, HD+
+SXGA+  1400 1050 SXGA+
+WSXGA+ 1680 1050 WSXGA+
+UXGA   1600 1200 UXGA
+1080i  1920 1080 HD 1080 (1080i, 1080p), FullHD
+1080p  1920 1080 HD 1080 (1080i, 1080p), FullHD
+WUXGA  1920 1200 WUXGA
+QWXGA  2048 1152 QWXGA, 2K
+2K     2048 1152 QWXGA, 2K
+TXGA   1920 1400 TXGA
+QXGA   2048 1536 QXGA
+WQHD   2560 1440 WQHD (Dell UltraSharp U2711, Apple iMac)
+WQXGA  2560 1600 WQXGA
+QSXGA  2560 2048 QSXGA
+QSXGA+ 2800 2100 QSXGA+
+WQSXGA 3200 2048 WQSXGA
+QUXGA  3200 2400 QUXGA
+QFHD   3840 2160 QFHD
+WQUXGA 3840 2400 WQUXGA
+4K     4096 2304 4K
+HXGA   4096 3072 HXGA
+WHXGA  5120 3200 WHXGA
+HSXGA  5120 4096 HSXGA
+WHSXGA 6400 4096 WHSXGA
+HUXGA  6400 4800 HUXGA
+UHDTV  7680 4320 UHDTV
+8K     8192 4320 8K
+WHUXGA 7680 4800 WHUXGA
 
 Not all of the above modes will be available.
 
-	Source:  http://en.wikipedia.org/wiki/List_of_common_resolutions
+    Source:  http://en.wikipedia.org/wiki/List_of_common_resolutions
 
 ------------------------------------------------------------------------------
 
 res_set will only allow you to set parameters to those that are reported by
-Windows to be supported by your video card (or you use the --raw option).
+Windows to be supported by your video card (unless you use the --raw option).
 
 Unfortunately, your monitor may not be able to support all of these modes.
 

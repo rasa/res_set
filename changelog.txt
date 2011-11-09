@@ -1,5 +1,11 @@
 res_set changelog
 
+Version 1.6 - 22 Oct 11:
+
+	Added additional resolutions per http://en.wikipedia.org/wiki/List_of_common_resolutions
+	Added shared lib to source zip file (unzip into lsdsk/../shared)
+	Updated to Visual Studio 2010 Express
+
 Version 1.5 - 03 Mar 07:
 
 	Added additional resolutions per http://en.wikipedia.org/wiki/List_of_common_resolutions
