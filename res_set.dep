@@ -1,12 +1,18 @@
 # Microsoft Developer Studio Generated Dependency File, included by res_set.mak
 
 .\res_set.cpp : \
-	".\version.h"\
+	{$(INCLUDE)}"basetsd.h"\
+	{$(INCLUDE)}"guiddef.h"\
+	{$(INCLUDE)}"reason.h"\
+	{$(INCLUDE)}"specstrings.h"\
+	{$(INCLUDE)}"stralign.h"\
+	{$(INCLUDE)}"tvout.h"\
 	{$(INCLUDE)}"debug.h"\
 	{$(INCLUDE)}"getopt.h"\
-	{$(INCLUDE)}"Optimize.h"\
-	{$(INCLUDE)}"Stackwalker.h"\
-	{$(INCLUDE)}"SystemMessage.h"\
+	{$(INCLUDE)}"optimize.h"\
+	{$(INCLUDE)}"stackwalker.h"\
+	{$(INCLUDE)}"systemmessage.h"\
+	".\version.h"\
 	{$(INCLUDE)}"ver_defaults.h"\
 	
 

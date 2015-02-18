@@ -32,6 +32,7 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/devcons_3tf
 #define _WIN32_WINNT 0x501
 
 #include <windows.h>
+#include <WinUser.h>
 #include <stdio.h>
 //#include <atlbase.h> // required for Stackwalker
 #include <limits.h>
@@ -1009,7 +1010,7 @@ printf("%s\n", __LINE__);
 					exit(1);
 				}
 				for (n = 0; n < monitors; ++n) {
-					if (stricmp(optarg, monitor[n].DeviceName) == 0) {
+					if (_stricmp(optarg, monitor[n].DeviceName) == 0) {
 						opt.monitor = n;
 						break;
 					}
