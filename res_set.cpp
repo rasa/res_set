@@ -25,6 +25,10 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/devcons_3tf
                 Modes are stored in the registry
 */
 
+#ifdef _MSC_VER
+#pragma comment(lib, "user32.lib")
+#endif
+
 #ifndef WIN32_LEAN_AND_MEAN
 # define WIN32_LEAN_AND_MEAN 1
 #endif
