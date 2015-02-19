@@ -1,19 +1,4 @@
-/*
-
-$Id$
-
-Copyright (c) 2005-2011 Ross Smith II (http://smithii.com). All rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of version 2 of the GNU General Public License
-as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
-
-*/
+// Copyright (c) 2005-2015 Ross Smith II. See Mit LICENSE in /LICENSE
 
 /*
 to do:
@@ -167,7 +152,7 @@ added:  CGA, EGA, WSVGA
 width	height	pixels		ratio		name		description												application				organization
 -------	-------	-----------	-----------	-----------	-------------------------------------------------------	-----------------------	--------------------- */
 
-// Name	Width	Height	Standard	SAR	DAR	Pixels				
+// Name	Width	Height	Standard	SAR	DAR	Pixels
 {"",	16,	16,	"Microvision",	"0.042361111",	"1",	"256"			},
 {"",	32,	32,	"PocketStation",	"0.042361111",	"1",	"1024"			},
 {"",	40,	30,	"Etch A Sketch Animator",	"0.16875",	"1.333",	"1200"			},
