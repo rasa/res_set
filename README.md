@@ -1,9 +1,12 @@
-res_set - Version 1.6 - Oct 22 2011
-Copyright (c) 2005-2011 Ross Smith II (http://smithii.com) All Rights Reserved
+# res_set 
 
-------------------------------------------------------------------------------
+Display or change the monitor resolution, color depth, or refresh rate
 
-Usage: res_set [options] [resolution]
+## Usage
+
+````
+res_set [options] [resolution]
+
 Options:
 -w | --width      x   Set horizontal resolution to 'x' (min/max allowed)
 -h | --height     y   Set vertical resolution to 'y'   (min/max allowed)
@@ -32,8 +35,11 @@ Options:
 -t | --test           Tests if the requested graphics mode could be set
 -v | --version        Show version and copyright information and quit
 -? | --help           Show this help message and quit
+````
 
-Examples:
+## Examples
+
+````
  res_set -l 21                 & rem list the display modes
  res_set -e 21                 & rem set display to mode 21
  res_set xga                   & rem set resolution to 1024 x 768, depth/refresh to minimum for this resolution
@@ -45,18 +51,22 @@ Examples:
  res_set -max -f min           & rem use highest supported resolution/depth but the lowest refresh rate
  res_set -m 2 800 600          & rem set monitor 2's resolution to 800x600
  res_set -m 2 -x 200 -y -600 800 600 & rem set monitor 2's resolution to 800x600, and position to 200,-600
+````
 
 Also
+````
 --refresh alias for --frequency
 --freq    alias for --frequency
 --bpp     alias for --bits
 --depth   alias for --bits
 -d        alias for --bits
+````
 
 You can use / instead of - to preface single letter options, //width will *not* work.
 
 Resolution can be entered as 'width height', or one of the following terms:
 
+````
        Term      W    H Description
 ------ ---- ---- -------------------------
 CGA     320  200 CGA 4-color, Atari ST 16 color, Commodore 64 VIC-II Hires, Amiga OCS NTSC Lowres, Apple IIGS LoRes, MCGA
@@ -116,12 +126,13 @@ HUXGA  6400 4800 HUXGA
 UHDTV  7680 4320 UHDTV
 8K     8192 4320 8K
 WHUXGA 7680 4800 WHUXGA
+````
 
 Not all of the above modes will be available.
 
     Source:  http://en.wikipedia.org/wiki/List_of_common_resolutions
 
-------------------------------------------------------------------------------
+## Notes
 
 res_set will only allow you to set parameters to those that are reported by
 Windows to be supported by your video card (unless you use the --raw option).
@@ -141,27 +152,30 @@ resolution for the current monitor, or the monitor you have specified.
 If you only specify the width/height, res_set will use the minimum value 
 for the height/width supposed for the width/height you used.
 
-------------------------------------------------------------------------------
+## Sources
 
-Sources: http://www.vaughns-1-pagers.com/computer/video-resolution.htm
-http://www1.us.dell.com/content/topics/global.aspx/vectors/en/2002_lcd?c=us&l=en&s=corp
-http://www.videotechnology.com/0904/formats.html
-http://www.berghell.com/whitepapers/Display%20Resolutions%20and%20Nomenclature%20-%20Display%20Sizes%20in%20Pixels%20-%20%20Horizontal%20by%20Vertical.pdf
+  * http://www.vaughns-1-pagers.com/computer/video-resolution.htm
+  * http://www1.us.dell.com/content/topics/global.aspx/vectors/en/2002_lcd?c=us&l=en&s=corp
+  * http://www.videotechnology.com/0904/formats.html
+  * http://www.berghell.com/whitepapers/Display%20Resolutions%20and%20Nomenclature%20-%20Display%20Sizes%20in%20Pixels%20-%20%20Horizontal%20by%20Vertical.pdf
 
-------------------------------------------------------------------------------
+## Contributing
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+To contribute to this project, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+## Bugs
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+To view existing bugs, or report a new bug, please see the [issues](/issues) page for this project.
 
-$Id$
+## License
+
+This project is [MIT licensed](LICENSE).
+
+## Changelog
+
+Please see [CHANGELOG.md](CHANGELOG.md) for the version history for this project.
+
+## Contact
+
+This project was originally developed by [Ross Smith II](mailto:ross@smithii.com).
+Any enhancements and suggestions are welcome.
