@@ -1,30 +1,31 @@
-## 1.7 (unreleased)
+## 1.7 (20-Feb-2015)
 
+  * Workaround buggy getopt implementation
   * Updated to Visual Studio 2013
   * Switch to MIT license
 
-## 1.6 (22 Oct 11)
+## 1.6 (22-Oct-2011)
 
   * Added additional resolutions per http://en.wikipedia.org/wiki/List_of_common_resolutions
   * Added shared lib to source zip file (unzip into lsdsk/../shared)
   * Updated to Visual Studio 2010 Express
 
-## 1.5 (03 Mar 07)
+## 1.5 (03-Mar-2007)
 
   * Added additional resolutions per http://en.wikipedia.org/wiki/List_of_common_resolutions
   * Removed SUXGA (1800x1440} as it doesn't seem to be used anywhere
 
-## 1.4 (12 Jul 06)
+## 1.4 (12-Jul-2006)
 
   * Standardized version information across all programs
 
-## 1.3 (22 May 06)
+## 1.3 (22-May-2006)
 
   * Added -Z | --raw           List all graphics modes (CAUTION!)
   * Fixed command line parsing issue
   * Updated documentation
 
-## 1.2 (21 May 06)
+## 1.2 (21-May-2006)
 
   * Added -o | --orientation n  Set display orientation to 'n' (0,90,180,270)
   * Added -x | --positionx   n  Set display x position to 'x'
@@ -58,7 +59,7 @@
 	CGA    (320x200)
     ````
     
-## 1.1 (08 Apr 06)
+## 1.1 (08-Apr-2006)
 
   * Added -s | --save          Settings will be permanently changed for the current user
   * Added -g | --global        Settings will be permanently changed for all users
@@ -88,6 +89,6 @@
   * Improved build scripts
   * Updated documentation
 
-## 1.0 (06 Feb 06)
+## 1.0 (06-Feb-2006)
 
   * Initial release
