@@ -1096,6 +1096,10 @@ printf("%s\n", __LINE__);
 				exit(0);
 				break;
 
+			case ':':
+				fprintf(stderr, "Option -%c requires an operand\n", optopt);
+				// fallthrough
+
 			default:
 				usage();
 				exit(1);
