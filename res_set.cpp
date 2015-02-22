@@ -880,26 +880,17 @@ static int set_arg(int *i, char *optarg) {
 }
 
 int main(int argc, char **argv) {
-printf("%s\n", __LINE__);
 	int rv = 0;
-printf("%s\n", __LINE__);
 	int mode_no = -1;
 
-printf("%s\n", __LINE__);
 #ifdef _DEBUG_ALLOC
-printf("%s\n", __LINE__);
     InitAllocCheck();
-printf("%s\n", __LINE__);
 #endif
-printf("%s\n", __LINE__);
 	progname = basename(argv[0]);
-printf("%s\n", __LINE__);
 
 	int len = strlen(progname);
-printf("%s\n", __LINE__);
 	if (len > 4 && _stricmp(progname + len - 4, ".exe") == 0)
 		progname[len - 4] = '\0';
-printf("%s\n", __LINE__);
 
 	opterr = 0;
 	optind = 1;
@@ -914,9 +905,7 @@ printf("%s\n", __LINE__);
 
 	modes = get_mode_count();
 
-printf("%s\n", __LINE__);
 	while (1) {
-printf("%s\n", __LINE__);
 		int c;
 		int option_index = 0;
 
@@ -1072,17 +1061,8 @@ printf("%s\n", __LINE__);
 				break;
 
 			case 'v': // version
-printf("%s\n", __LINE__);
 				printf("%s - Version %s - %s\n", APPNAME, APPVERSION, __DATE__);
-printf("%s\n", __LINE__);
 				printf(APPCOPYRIGHT "\n\n");
-printf("%s\n", __LINE__);
-
-				printf(
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n");
 
 				exit(0);
 				break;
@@ -1184,7 +1164,7 @@ printf("%s\n", __LINE__);
 
 		if (opt.width == 0 && opt.height == 0 && opt.depth == 0 && opt.refresh == 0) {
 			if (!query)
-				usage();
+				//usage();
 			break;
 		}
 
