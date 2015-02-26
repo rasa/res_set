@@ -1,6 +1,6 @@
-# res_set 
+# res_set [![Flattr this][flatter_png]][flatter]
 
-Display or change the monitor resolution, color depth, or refresh rate
+Display or change the monitor resolution, color depth, or refresh rate.
 
 ## Usage
 
@@ -39,7 +39,7 @@ Options:
 
 ## Examples
 
-````
+````batch
  res_set -l 21                 & rem list the display modes
  res_set -e 21                 & rem set display to mode 21
  res_set xga                   & rem set resolution to 1024 x 768, depth/refresh to minimum for this resolution
@@ -75,8 +75,8 @@ WQVGA   432  240 WQVGA
 HVGA    640  240 HVGA, Handheld PC
 EGA     640  350 EGA
 MDA     720  350 MDA
-D1      720  480 D1 
-D1P     720  576 D1P 
+D1      720  480 D1
+D1P     720  576 D1P
 VGA     640  480 VGA, MCGA (in monochome), Sun-1 color
 WVGA    768  480 WVGA
 WGA     800  480 WVGA or WGA, List of mobile phones with WVGA display, Nokia 770/800N/N810/N900, Asus Eee PC 700 and 701 series, Pandora
@@ -149,15 +149,15 @@ depth and refresh rate, if you do not specify them.
 If you do not specify the resolution, res_set will default to the current
 resolution for the current monitor, or the monitor you have specified.
 
-If you only specify the width/height, res_set will use the minimum value 
+If you only specify the width/height, res_set will use the minimum value
 for the height/width supposed for the width/height you used.
 
 ## Sources
 
-  * http://www.vaughns-1-pagers.com/computer/video-resolution.htm
-  * http://www1.us.dell.com/content/topics/global.aspx/vectors/en/2002_lcd?c=us&l=en&s=corp
-  * http://www.videotechnology.com/0904/formats.html
-  * http://www.berghell.com/whitepapers/Display%20Resolutions%20and%20Nomenclature%20-%20Display%20Sizes%20in%20Pixels%20-%20%20Horizontal%20by%20Vertical.pdf
+* http://www.vaughns-1-pagers.com/computer/video-resolution.htm
+* http://www1.us.dell.com/content/topics/global.aspx/vectors/en/2002_lcd?c=us&l=en&s=corp
+* http://www.videotechnology.com/0904/formats.html
+* http://www.berghell.com/whitepapers/Display%20Resolutions%20and%20Nomenclature%20-%20Display%20Sizes%20in%20Pixels%20-%20%20Horizontal%20by%20Vertical.pdf
 
 ## Contributing
 
@@ -165,17 +165,25 @@ To contribute to this project, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Bugs
 
-To view existing bugs, or report a new bug, please see the [issues](/issues) page for this project.
+To view existing bugs, or report a new bug, please see [issues](../../issues).
+
+## Changelog
+
+To view the version history for this project, please see [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
 This project is [MIT licensed](LICENSE).
 
-## Changelog
-
-Please see [CHANGELOG.md](CHANGELOG.md) for the version history for this project.
-
 ## Contact
 
-This project was originally developed by [Ross Smith II](mailto:ross@smithii.com).
-Any enhancements and suggestions are welcome.
+This project was created and is maintained by [Ross Smith II][] [![endorse][endorse_png]][endorse]
+
+Feedback, suggestions, and enhancements are welcome.
+
+[Ross Smith II]: mailto:ross@smithii.com "ross@smithii.com"
+[flatter]: https://flattr.com/submit/auto?user_id=rasa&url=https%3A%2F%2Fgithub.com%2Frasa%2Fres_set
+[flatter_png]: http://button.flattr.com/flattr-badge-large.png "Flattr this"
+[endorse]: https://coderwall.com/rasa
+[endorse_png]: https://api.coderwall.com/rasa/endorsecount.png "endorse"
+
