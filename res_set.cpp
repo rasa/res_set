@@ -27,11 +27,8 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/devcons_3tf
 #include <limits.h>
 #include <stdlib.h>
 
-#include "Stackwalker.h"
-#include "Optimize.h"
-#include "SystemMessage.h"
-#include "debug.h"
 #include "getopt.h"
+#include "SystemMessage.h"
 
 #include "version.h"
 
