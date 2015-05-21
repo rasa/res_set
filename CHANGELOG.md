@@ -1,3 +1,7 @@
+## 1.10 (unreleased)
+
+  * Update Makefile
+  
 ## 1.9 (28-Mar-2015)
 
   * Fix segfault due to linker issue (#1)
